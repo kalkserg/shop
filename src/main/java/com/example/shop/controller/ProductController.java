@@ -1,18 +1,11 @@
 package com.example.shop.controller;
 
-import com.example.shop.model.Person;
 import com.example.shop.model.Product;
 import com.example.shop.service.MyException;
 import com.example.shop.service.ProductService;
-import com.example.shop.service.ProductService;
-import org.json.JSONArray;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 
 @RestController
@@ -37,7 +30,12 @@ public class ProductController {
 
     @PostMapping("/product/deleteProduct")
     public boolean deleteProduct(@RequestBody Product product) {
-        return productService.deleteProduct(product);
+        try {
+            return productService.deleteProduct(product);
+        } catch (MyException e) {
+            System.err.println(e.getMessage());
+        }
+        return false;
     }
 
     @PostMapping(value = "/product/getAllProducts")

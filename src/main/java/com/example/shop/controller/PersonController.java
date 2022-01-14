@@ -136,8 +136,6 @@ public class PersonController {
     @PostMapping("/person/{idPerson}/addNewCart")
     public Person addNewCart(@PathVariable String idPerson) {
         Person person = null;
-        Cart cart = null;
-
         try {
             person = personService.getPersonById(Integer.parseInt(idPerson));
         } catch (MyException e) {
@@ -145,10 +143,7 @@ public class PersonController {
         }
 
         if (person != null) {
-            Integer idCart = cartService.getLastId() + 1;
-            cart = cartService.createCart(idCart);
-            System.out.println(idCart);
-//            person.setIdCarts(Collections.singletonList(idCart));
+            Integer idCart = cartService.createNextCart();;
             personService.addNewCart(person, idCart);
         }
         return person;

@@ -62,7 +62,7 @@ public class PersonServiceImpl implements PersonService {
     public boolean deletePerson(Person person) throws MyException {
         try {
             return personStorageSet.remove(person);
-        }catch (Exception ex) {
+        } catch (Exception ex) {
             throw new MyException("Wrong person");
         }
     }

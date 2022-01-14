@@ -1,6 +1,7 @@
 package com.example.shop.model;
 
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -10,6 +11,7 @@ import java.util.Objects;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 public class Product {
     private Integer id;
     private String category;
@@ -27,5 +29,15 @@ public class Product {
     @Override
     public int hashCode() {
         return Objects.hash(id, category, name, price);
+    }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "id=" + id +
+                ", category='" + category + '\'' +
+                ", name='" + name + '\'' +
+                ", price=" + price +
+                '}';
     }
 }

@@ -40,7 +40,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n\"id\": 1,\r\n\"firstName\": \"test\",\r\n\"lastName\": \"test\",\r\n\"age\":20,\r\n\"phoneNumber\" :\"1234567890\",\r\n\"email\":\"test@test.ua\"\r\n}",
+					"raw": "{\r\n\"id\": 2,\r\n\"firstName\": \"sample\",\r\n\"lastName\": \"sample\",\r\n\"age\":30,\r\n\"phoneNumber\" :\"0987654321\",\r\n\"email\":\"sample@sample.ua\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"

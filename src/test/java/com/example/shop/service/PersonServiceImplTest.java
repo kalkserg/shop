@@ -1,6 +1,7 @@
 package com.example.shop.service;
 
 import com.example.shop.model.Person;
+import com.example.shop.model.Product;
 import com.example.shop.storage.PersonStorage;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -10,6 +11,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import static com.example.shop.storage.PersonStorage.personStorageSet;
+import static com.example.shop.storage.ProductStorage.productStorageSet;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class PersonServiceImplTest {
@@ -49,11 +51,24 @@ class PersonServiceImplTest {
     }
 
     @Test
-    void addNewCart() {
+    void addNewCartTest() {
         Person expected = personServiceImpl.addNewCart(person1, 1);
         Person actual = new Person(1, "Serg", "Serg", 12, "1234567890", "serg@test.ua",
                 new ArrayList<Integer>(){{add(1);}});
 
         assertEquals(expected.getIdCarts(), actual.getIdCarts());
+    }
+
+    @Test
+    void deletePersonTest() {
+        try {
+            personServiceImpl.deletePerson(person1);
+        } catch (MyException e) {
+            System.err.println(e.getMessage());
+        }
+        Set<Person> expected = personStorageSet;
+        Set<Person> actual = new HashSet<>();
+        actual.add(person2);
+        assertEquals(expected, actual);
     }
 }

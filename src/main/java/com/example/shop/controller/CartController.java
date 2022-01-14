@@ -1,18 +1,17 @@
 package com.example.shop.controller;
 
 import com.example.shop.model.Cart;
-import com.example.shop.model.Person;
 import com.example.shop.model.Product;
 import com.example.shop.service.CartService;
 import com.example.shop.service.MyException;
 import com.example.shop.service.PersonService;
 import com.example.shop.service.ProductService;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
@@ -39,15 +38,15 @@ public class CartController {
         Product product = null;
         try {
             product = productService.getProductById(Integer.parseInt(idProduct));
-        }catch (MyException e){
+        } catch (MyException e) {
             System.err.println(e.getMessage());
         }
 
-        if(product!=null) {
+        if (product != null) {
             try {
                 cart = cartService.getCartById(Integer.parseInt(idCart));
                 return cart.addProduct(product);
-            }catch (MyException e){
+            } catch (MyException e) {
                 System.err.println(e.getMessage());
             }
         }
@@ -63,7 +62,7 @@ public class CartController {
             System.err.println(e.getMessage());
         }
 
-        if(product!=null) {
+        if (product != null) {
             Cart cart = null;
             try {
                 cart = cartService.getCartById(Integer.parseInt(idCart));
@@ -83,7 +82,7 @@ public class CartController {
         } catch (MyException e) {
             System.err.println(e.getMessage());
         }
-        if(cart!=null) return cart.getProducts();
+        if (cart != null) return cart.getProducts();
         return new ArrayList<Product>();
     }
 

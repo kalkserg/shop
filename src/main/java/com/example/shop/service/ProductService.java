@@ -6,8 +6,12 @@ import java.util.Set;
 
 public interface ProductService {
     Product createProduct(Product Product);
+
     Product updateProduct(Product Product);
-    boolean deleteProduct(Product Product);
+
+    boolean deleteProduct(Product Product) throws MyException;
+
     Product getProductById(int id) throws MyException;
+
     Set<Product> getAllProducts();
 }
