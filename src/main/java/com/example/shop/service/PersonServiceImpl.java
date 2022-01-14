@@ -1,6 +1,5 @@
 package com.example.shop.service;
 
-import com.example.shop.model.Cart;
 import com.example.shop.model.Person;
 import com.example.shop.storage.PersonStorage;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,23 +12,25 @@ import java.util.Set;
 import static com.example.shop.storage.PersonStorage.personStorageSet;
 
 @Service
-public class PersonServiceImpl implements PersonService{
+public class PersonServiceImpl implements PersonService {
 
-    private PersonStorage personStorage;
+    private final PersonStorage personStorage;
 
     @Autowired
     public PersonServiceImpl(PersonStorage personStorage) {
         this.personStorage = personStorage;
     }
 
+    @Override
     public Person createPerson(Person person) {
         boolean isNewPerson = personStorageSet.add(person);
-        if(isNewPerson) {
+        if (isNewPerson) {
             return person;
         }
         return null;
     }
 
+    @Override
     public Person updatePerson(Person newPerson) {
         Person oldPerson = personStorageSet.stream().filter(p -> p.getId().equals(newPerson.getId())).findFirst().get();
         List<Integer> idCarts = oldPerson.getIdCarts();
@@ -48,14 +49,29 @@ public class PersonServiceImpl implements PersonService{
         return person;
     }
 
-    public boolean deletePerson(Person person) {
-        return personStorageSet.remove(person);
+    @Override
+    public Person delCart(Person person, Integer idCart) {
+        List<Integer> ids = new ArrayList<>();
+        ids.addAll(person.getIdCarts());
+        ids.remove(idCart);
+        person.setIdCarts(ids);
+        return person;
     }
 
+    @Override
+    public boolean deletePerson(Person person) throws MyException {
+        try {
+            return personStorageSet.remove(person);
+        }catch (Exception ex) {
+            throw new MyException("Wrong person");
+        }
+    }
+
+    @Override
     public Person getPersonById(int id) throws MyException {
         try {
             return personStorageSet.stream().filter(p -> p.getId().equals(id)).findFirst().get();
-        }catch (Exception ex){
+        } catch (Exception ex) {
             throw new MyException("Wrong idPerson");
         }
     }

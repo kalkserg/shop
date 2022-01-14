@@ -28,10 +28,13 @@ public class CartServiceImpl implements CartService{
         return newCart;
     }
 
-    public boolean deleteCart(Cart cart) {
+    @Override
+    public boolean deleteCart(Integer id) throws MyException {
+        Cart cart = getCartById(id);
         return cartStorageSet.remove(cart);
     }
 
+    @Override
     public Cart getCartById(int id) throws MyException {
         try {
             return cartStorageSet.stream().filter(p -> p.getId().equals(id)).findFirst().get();
@@ -43,16 +46,6 @@ public class CartServiceImpl implements CartService{
     @Override
     public Set<Cart> getAllCarts() {
         return cartStorageSet;
-    }
-
-    @Override
-    public Float addProduct(Product product) {
-        return null;
-    }
-
-    @Override
-    public Float getSum() {
-        return null;
     }
 
     @Override

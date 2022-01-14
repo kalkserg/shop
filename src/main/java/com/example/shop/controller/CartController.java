@@ -30,7 +30,7 @@ public class CartController {
         this.productService = productService;
     }
 
-    @PostMapping(value = "/cart/{idCart}/add/{idProduct}")
+    @PostMapping(value = "/cart/{idCart}/addProduct/{idProduct}")
     public Float buy(@PathVariable String idCart, @PathVariable String idProduct) {
 //        Person person = personService.getPersonById(Integer.parseInt(idPerson));
 //        List<Integer> idCarts = person.getIdCarts();
@@ -54,7 +54,7 @@ public class CartController {
         return null;
     }
 
-    @PostMapping(value = "cart/{idCart}/delete/{idProduct}")
+    @PostMapping(value = "cart/{idCart}/deleteProduct/{idProduct}")
     public Float cancel(@PathVariable String idCart, @PathVariable String idProduct) {
         Product product = null;
         try {
@@ -74,35 +74,6 @@ public class CartController {
         }
         return null;
     }
-
-
-//    @PostMapping(value = "/cancel/{idPerson}/{idCart}/{idProduct}")
-//    public Float cancel(@PathVariable String idPerson, @PathVariable String idCart, @PathVariable String idProduct) {
-//        Person person = null;
-//        try {
-//            person = personService.getPersonById(Integer.parseInt(idPerson));
-//        } catch (MyException e) {
-//            System.err.println(e.getMessage());
-//        }
-//        List<Integer> idCarts = person.getIdCarts();
-//        long count = idCarts.stream().filter(i -> i.equals(idCart)).count();
-//        Product product = null;
-//        try {
-//            product = productService.getProductById(Integer.parseInt(idProduct));
-//        } catch (MyException e) {
-//            System.err.println(e.getMessage());
-//        }
-//        if(count>0 && product!=null) {
-//            Cart cart = null;
-//            try {
-//                cart = cartService.getCartById(Integer.parseInt(idCart));
-//            } catch (MyException e) {
-//                System.err.println(e.getMessage());
-//            }
-//            return cart.delProduct(product);
-//        }
-//        return null;
-//    }
 
     @PostMapping(value = "/cart/{idCart}/getAllProducts")
     public List<Product> getAllProducts(@PathVariable String idCart) {

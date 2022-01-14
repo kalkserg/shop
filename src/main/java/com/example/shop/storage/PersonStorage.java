@@ -10,7 +10,5 @@ import java.util.Set;
 public class PersonStorage {
     public static Set<Person> personStorageSet = new HashSet<Person>() {
 
-
     };
-
 }

@@ -133,7 +133,6 @@ public class PersonController {
         return newPerson;
     }
 
-
     @PostMapping("/person/{idPerson}/addNewCart")
     public Person addNewCart(@PathVariable String idPerson) {
         Person person = null;
@@ -155,20 +154,32 @@ public class PersonController {
         return person;
     }
 
-//    @PostMapping("/person/createPerson")
-//    public Person createPerson(@RequestBody(required = false) String str, Model model) {
-//        System.out.println(person);
-//        Person newPerson = personService.createPerson(person);
-//        return newPerson;
-//    }
+    @PostMapping("/person/{idPerson}/delCart/{idCart}")
+    public Person delCart(@PathVariable String idPerson, @PathVariable String idCart) {
+        Person person = null;
+
+        try {
+            person = personService.getPersonById(Integer.parseInt(idPerson));
+        } catch (MyException e) {
+            System.err.println(e.getMessage());
+        }
+
+        if (person != null) {
+            try {
+                cartService.deleteCart(Integer.valueOf(idCart));
+            } catch (MyException e) {
+                System.err.println(e.getMessage());
+            }
+            personService.delCart(person, Integer.valueOf(idCart));
+        }
+        return person;
+    }
 
     @PostMapping(value = "/person/getAllPersons")
     @ResponseBody
     public Set<Person> getAllPersons() {
         return personService.getAllPersons();
     }
-
-
 
     @PostMapping(value = "/person/{id}")
     public Person getPerson(@PathVariable String id) {
@@ -189,18 +200,4 @@ public class PersonController {
         }
         return false;
     }
-
-
-//    @PostMapping(value = "/hello")
-////    @RequestMapping(value = "/hello")
-//    @ResponseBody
-//    String home() {
-//        return "Hello World!";
-//    }
-//
-//    @PostMapping(value = "/person/{id}/{idCart}/{idProduct}")
-//    public boolean buy(@PathVariable String id) {
-//        System.out.println(id);
-//        return true;
-//    }
 }

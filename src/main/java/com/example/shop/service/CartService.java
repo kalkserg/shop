@@ -7,10 +7,8 @@ import java.util.Set;
 
 public interface CartService {
     Cart createCart(Integer id);
-    boolean deleteCart(Cart cart);
+    boolean deleteCart(Integer id) throws MyException;
     Cart getCartById(int id) throws MyException;
     Set<Cart> getAllCarts();
-    Float addProduct(Product product);
-    Float getSum();
     int getLastId();
 }

@@ -11,8 +11,8 @@ import java.util.Objects;
 
 @Getter
 @Setter
-//@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 public class Person {
 
     private Integer id;
