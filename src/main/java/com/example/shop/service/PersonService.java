@@ -7,7 +7,7 @@ import java.util.Set;
 public interface PersonService {
     Person createPerson(Person person);
 
-    Person updatePerson(Person person);
+    Person updatePerson(Person person) throws MyException;
 
     boolean deletePerson(Person person) throws MyException;
 

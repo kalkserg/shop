@@ -25,53 +25,65 @@ public class PersonController {
         this.cartService = cartService;
     }
 
+//    @PostMapping("/person/createPerson")
+//    public Person createPerson(@RequestBody(required = false) String str) {
+//        System.out.println(str);
+//        JSONObject obj = new JSONObject(str);
+//
+//        Integer id = null;
+//        String firstName = null;
+//        String lastName = null;
+//        Integer age = null;
+//        String phoneNumber = null;
+//        String email = null;
+//        List<Integer> idCarts = null;
+//
+//        Person person = new Person();
+//
+//        try {
+//            id = obj.getInt("id");
+//        } catch (Exception ex) {
+//        }
+//        try {
+//            firstName = obj.getString("firstName");
+//        } catch (Exception ex) {
+//        }
+//        try {
+//            lastName = obj.getString("lastName");
+//        } catch (Exception ex) {
+//        }
+//        try {
+//            age = obj.getInt("age");
+//        } catch (Exception ex) {
+//        }
+//        try {
+//            phoneNumber = obj.getString("phoneNumber");
+//        } catch (Exception ex) {
+//        }
+//        try {
+//            email = obj.getString("email");
+//        } catch (Exception ex) {
+//        }
+//
+//        person.setId(id);
+//        person.setFirstName(firstName);
+//        person.setLastName(lastName);
+//        person.setPhoneNumber(phoneNumber);
+//        person.setAge(age);
+//        person.setEmail(email);
+//
+//        Person newPerson = personService.createPerson(person);
+//        if (newPerson != null) {
+//            Integer idCart = cartService.getLastId() + 1;
+//            cartService.createCart(idCart);
+//            System.out.println(idCart);
+//            person.setIdCarts(Collections.singletonList(idCart));
+//        }
+//        return newPerson;
+//    }
+
     @PostMapping("/person/createPerson")
-    public Person createPerson(@RequestBody(required = false) String str) {
-        System.out.println(str);
-        JSONObject obj = new JSONObject(str);
-
-        Integer id = null;
-        String firstName = null;
-        String lastName = null;
-        Integer age = null;
-        String phoneNumber = null;
-        String email = null;
-        List<Integer> idCarts = null;
-
-        Person person = new Person();
-
-        try {
-            id = obj.getInt("id");
-        } catch (Exception ex) {
-        }
-        try {
-            firstName = obj.getString("firstName");
-        } catch (Exception ex) {
-        }
-        try {
-            lastName = obj.getString("lastName");
-        } catch (Exception ex) {
-        }
-        try {
-            age = obj.getInt("age");
-        } catch (Exception ex) {
-        }
-        try {
-            phoneNumber = obj.getString("phoneNumber");
-        } catch (Exception ex) {
-        }
-        try {
-            email = obj.getString("email");
-        } catch (Exception ex) {
-        }
-
-        person.setId(id);
-        person.setFirstName(firstName);
-        person.setLastName(lastName);
-        person.setPhoneNumber(phoneNumber);
-        person.setAge(age);
-        person.setEmail(email);
-
+    public Person createPerson(@RequestBody Person person) {
         Person newPerson = personService.createPerson(person);
         if (newPerson != null) {
             Integer idCart = cartService.getLastId() + 1;
@@ -83,53 +95,13 @@ public class PersonController {
     }
 
     @PostMapping("/person/updatePerson")
-    public Person updatePerson(@RequestBody(required = false) String str) {
-        System.out.println(str);
-        JSONObject obj = new JSONObject(str);
-
-        Integer id = null;
-        String firstName = null;
-        String lastName = null;
-        Integer age = null;
-        String phoneNumber = null;
-        String email = null;
-        List<Integer> idCarts = null;
-
-        Person person = new Person();
-
+    public Person updatePerson(@RequestBody Person person) {
+        Person newPerson = null;
         try {
-            id = obj.getInt("id");
-        } catch (Exception ex) {
+            newPerson = personService.updatePerson(person);
+        } catch (MyException e) {
+            System.err.println(e.getMessage());
         }
-        try {
-            firstName = obj.getString("firstName");
-        } catch (Exception ex) {
-        }
-        try {
-            lastName = obj.getString("lastName");
-        } catch (Exception ex) {
-        }
-        try {
-            age = obj.getInt("age");
-        } catch (Exception ex) {
-        }
-        try {
-            phoneNumber = obj.getString("phoneNumber");
-        } catch (Exception ex) {
-        }
-        try {
-            email = obj.getString("email");
-        } catch (Exception ex) {
-        }
-
-        person.setId(id);
-        person.setFirstName(firstName);
-        person.setLastName(lastName);
-        person.setPhoneNumber(phoneNumber);
-        person.setAge(age);
-        person.setEmail(email);
-
-        Person newPerson = personService.updatePerson(person);
         return newPerson;
     }
 

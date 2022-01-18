@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 import static com.example.shop.storage.PersonStorage.personStorageSet;
@@ -31,21 +32,25 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
-    public Person updatePerson(Person newPerson) {
-        Person oldPerson = personStorageSet.stream().filter(p -> p.getId().equals(newPerson.getId())).findFirst().get();
-        List<Integer> idCarts = oldPerson.getIdCarts();
-        personStorageSet.remove(oldPerson);
-        newPerson.setIdCarts(idCarts);
-        personStorageSet.add(newPerson);
-        return newPerson;
+    public Person updatePerson(Person newPerson) throws MyException {
+        try {
+            Person oldPerson = personStorageSet.stream().filter(p -> p.getId().equals(newPerson.getId())).findFirst().orElseThrow();
+            List<Integer> idCarts = oldPerson.getIdCarts();
+            personStorageSet.remove(oldPerson);
+            newPerson.setIdCarts(idCarts);
+            personStorageSet.add(newPerson);
+            return newPerson;
+        }catch (Exception ex){
+            throw new MyException("No such person");
+        }
     }
 
     @Override
     public Person addNewCart(Person person, Integer idCart) {
-        List<Integer> ids = new ArrayList<>();
-        ids.addAll(person.getIdCarts());
-        ids.add(idCart);
-        person.setIdCarts(ids);
+        List<Integer> listIdCarts = new ArrayList<>();
+        listIdCarts.addAll(person.getIdCarts());
+        listIdCarts.add(idCart);
+        person.setIdCarts(listIdCarts);
         return person;
     }
 
@@ -70,7 +75,7 @@ public class PersonServiceImpl implements PersonService {
     @Override
     public Person getPersonById(int id) throws MyException {
         try {
-            return personStorageSet.stream().filter(p -> p.getId().equals(id)).findFirst().get();
+            return personStorageSet.stream().filter(p -> p.getId().equals(id)).findFirst().orElseThrow();
         } catch (Exception ex) {
             throw new MyException("Wrong idPerson");
         }

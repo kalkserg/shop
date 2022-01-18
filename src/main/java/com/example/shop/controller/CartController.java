@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -30,11 +31,7 @@ public class CartController {
     }
 
     @PostMapping(value = "/cart/{idCart}/addProduct/{idProduct}")
-    public Float buy(@PathVariable String idCart, @PathVariable String idProduct) {
-//        Person person = personService.getPersonById(Integer.parseInt(idPerson));
-//        List<Integer> idCarts = person.getIdCarts();
-//        long count = idCarts.stream().filter(i -> i.equals(idCart)).count();
-        Cart cart = null;
+    public BigDecimal buy(@PathVariable String idCart, @PathVariable String idProduct) {
         Product product = null;
         try {
             product = productService.getProductById(Integer.parseInt(idProduct));
@@ -44,7 +41,7 @@ public class CartController {
 
         if (product != null) {
             try {
-                cart = cartService.getCartById(Integer.parseInt(idCart));
+                Cart cart = cartService.getCartById(Integer.parseInt(idCart));
                 return cart.addProduct(product);
             } catch (MyException e) {
                 System.err.println(e.getMessage());
@@ -54,7 +51,7 @@ public class CartController {
     }
 
     @PostMapping(value = "cart/{idCart}/deleteProduct/{idProduct}")
-    public Float cancel(@PathVariable String idCart, @PathVariable String idProduct) {
+    public BigDecimal cancel(@PathVariable String idCart, @PathVariable String idProduct) {
         Product product = null;
         try {
             product = productService.getProductById(Integer.parseInt(idProduct));
@@ -91,27 +88,4 @@ public class CartController {
         List<Cart> carts = new ArrayList<>();
         return cartService.getAllCarts();
     }
-
-//    @PostMapping(value = "/carts/{idPerson}/{idCart}")
-//    public List<Product> bought(@PathVariable String idPerson, @PathVariable String idCart) {
-//        Person person = null;
-//        try {
-//            person = personService.getPersonById(Integer.parseInt(idPerson));
-//        } catch (MyException e) {
-//            System.err.println(e.getMessage());
-//        }
-//        List<Integer> idCarts = person.getIdCarts();
-//        long count = idCarts.stream().filter(i -> i.equals(idCart)).count();
-//        if(count>0) {
-//            Cart cart = null;
-//            try {
-//                cart = cartService.getCartById(Integer.parseInt(idCart));
-//            } catch (MyException e) {
-//                System.err.println(e.getMessage());
-//            }
-//            return cart.getProducts();
-//        }
-//        return new ArrayList<Product>();
-//    }
-
 }

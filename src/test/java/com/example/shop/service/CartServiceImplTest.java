@@ -1,19 +1,15 @@
 package com.example.shop.service;
 
 import com.example.shop.model.Cart;
-import com.example.shop.model.Cart;
-import com.example.shop.model.Person;
 import com.example.shop.storage.CartStorage;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
 import static com.example.shop.storage.CartStorage.cartStorageSet;
-import static com.example.shop.storage.PersonStorage.personStorageSet;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class CartServiceImplTest {
 
@@ -22,7 +18,7 @@ class CartServiceImplTest {
 
     Cart cart1;
     Cart cart2;
-    
+
     @BeforeEach
     void create() {
         cart1 = new Cart();

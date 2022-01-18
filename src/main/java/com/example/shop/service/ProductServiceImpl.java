@@ -1,16 +1,13 @@
 package com.example.shop.service;
 
-import com.example.shop.model.Person;
 import com.example.shop.model.Product;
-import com.example.shop.storage.PersonStorage;
 import com.example.shop.storage.ProductStorage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
-import static com.example.shop.storage.PersonStorage.personStorageSet;
 import static com.example.shop.storage.ProductStorage.productStorageSet;
 
 @Service
@@ -23,6 +20,7 @@ public class ProductServiceImpl implements ProductService {
         this.productStorage = productStorage;
     }
 
+    @Override
     public Product createProduct(Product product) {
         boolean isNewProduct = productStorageSet.add(product);
         if (isNewProduct) {
@@ -31,13 +29,20 @@ public class ProductServiceImpl implements ProductService {
         return null;
     }
 
+    @Override
     public Product updateProduct(Product newProduct) {
-        Product oldProduct = productStorageSet.stream().filter(p -> p.getId().equals(newProduct.getId())).findFirst().get();
+        Product oldProduct= null;
+        try {
+            oldProduct = productStorageSet.stream().filter(p -> p.getId().equals(newProduct.getId())).findFirst().orElseThrow();
+        }catch (Exception e) {
+            return new Product();
+        }
         productStorageSet.remove(oldProduct);
         productStorageSet.add(newProduct);
         return newProduct;
     }
 
+    @Override
     public boolean deleteProduct(Product product) throws MyException {
         try {
             return productStorageSet.remove(product);
@@ -46,9 +51,10 @@ public class ProductServiceImpl implements ProductService {
         }
     }
 
+    @Override
     public Product getProductById(int id) throws MyException {
         try {
-            return productStorageSet.stream().filter(p -> p.getId().equals(id)).findFirst().get();
+            return productStorageSet.stream().filter(p -> p.getId().equals(id)).findFirst().orElseThrow();
         } catch (Exception ex) {
             throw new MyException("Wrong idProduct");
         }

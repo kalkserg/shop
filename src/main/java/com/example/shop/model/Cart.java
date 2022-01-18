@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -16,7 +17,7 @@ public class Cart {
 
     private Integer id;
     private List<Product> products = new ArrayList<Product>();
-    private float sum = 0;
+    private BigDecimal sum = BigDecimal.valueOf(0);
 
     @Override
     public boolean equals(Object o) {
@@ -31,7 +32,7 @@ public class Cart {
         return Objects.hash(id);
     }
 
-    public Float addProduct(Product product) {
+    public BigDecimal addProduct(Product product) {
         try {
             products.add(product);
         } catch (Exception ex) {
@@ -41,16 +42,16 @@ public class Cart {
         return sum;
     }
 
-    public Float delProduct(Product product) {
+    public BigDecimal delProduct(Product product) {
         products.remove(product);
         this.sum = sum();
         return this.sum;
     }
 
-    public float sum() {
-        float sumPrice = 0;
+    public BigDecimal sum() {
+        BigDecimal sumPrice = BigDecimal.valueOf(0);
         for (Product p : products) {
-            sumPrice += p.getPrice();
+            sumPrice = sumPrice.add(p.getPrice());
         }
         return sumPrice;
     }

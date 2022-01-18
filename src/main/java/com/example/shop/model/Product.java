@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.math.BigDecimal;
 import java.util.Objects;
 
 @Getter
@@ -16,7 +17,7 @@ public class Product {
     private Integer id;
     private String category;
     private String name;
-    private Float price;
+    private BigDecimal price;
 
     @Override
     public boolean equals(Object o) {
